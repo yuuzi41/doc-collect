@@ -1,0 +1,24 @@
+<html>
+<body>
+<h1>ドキュメント</h1>
+<form method="POST" action="/categories/<%= params[:category_id] %>/documents/<%= @doc.id %>">
+<input name="_method" type="hidden" value="put" />
+<input type="hidden" name="document[category_id]" value="<%= @doc.category_id %>" />
+<p>名前:<input type="input" name="document[idname]" value="<%= @doc.idname %>" /></p>
+<p>パス:<input type="input" name="document[path]" value="<%= @doc.path %>" /></p>
+<p>属性 : </p>
+<% Category.find(params[:category_id]).attribs.each do |attr| %>
+<% attrval = DocAttrib.find(:first, :conditions => ["attrib_id = ? AND document_id = ?", attr.id, @doc.id]) %>
+<p><%= attr.readname %> : 
+<% if attrval.nil? %>
+<input type="input" name="document[attrs[<%=attr.id%>]]" value="" />
+<% else %>
+<input type="input" name="document[attrs[<%=attr.id%>]]" value="<%= attrval.value %>" />
+<% end %>
+</p>
+<% end %>
+<p><input type="submit" value="更新" /></p>
+</form>
+</body>
+</html>
+

@@ -1,0 +1,11 @@
+<html>
+<head></head>
+<body>
+<h1><%= @name %></h1>
+<ul>
+<% @datas.each do |d| %>
+<li><a href="./<%= @name %>/<%= d[:prop][:displayname] %>"><%= d[:prop][:displayname] %></a> <%= d[:prop][:creationdate] %> <%= d[:prop][:getcontentlength] %> - <%= d[:href] %></li>
+<% end %>
+</ul>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<html>
+<body>
+<h1>ドキュメントの追加</h1>
+<form method="POST" action="/categories/<%= params[:category_id] %>/documents">
+<input type="hidden" name="document[category_id]" value="<%= params[:category_id] %>" />
+<p>名前:<input type="input" name="document[idname]" value="" /></p>
+<p>パス:<input type="input" name="document[path]" value="" /></p>
+<p>属性 : </p>
+<% Category.find(params[:category_id]).attribs.each do |attr| %>
+<p><%= attr.readname %> : <input type="input" name="document[attrs[<%=attr.id%>]]" value="" /></p>
+<% end %>
+<p><input type="submit" value="追加" /></p>
+</form>
+</body>
+</html>
+

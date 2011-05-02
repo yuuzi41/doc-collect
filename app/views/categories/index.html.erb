@@ -1,0 +1,14 @@
+<html>
+<head>
+</head>
+<body>
+<h1>種類一覧</h1>
+<p><a href="/categories/new">新規</a></p>
+<ul>
+<% @categories.each do |cat| %>
+<li><a href="/categories/<%= cat.id %>"><%= cat.readname %></a></li>
+<% end %>
+</ul>
+</body>
+</html>
+

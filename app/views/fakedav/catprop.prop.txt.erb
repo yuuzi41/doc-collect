@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+  <D:multistatus xmlns:D="DAV:">
+    <D:response>
+      <D:href>/fakedav/<%= @category.readname %></D:href>
+      <D:propstat>
+        <D:prop>
+<% @allowrespond.each_pair do |k,v| %>
+<% if k == 'creationdate' then %>
+          <D:creationdate>1997-12-01T17:42:21-08:00</D:creationdate>
+<% elsif k == 'getlastmodified' then %>
+          <D:getlastmodified>1997-12-01T17:42:21-08:00</D:getlastmodified>
+<% elsif k == 'displayname' then %>
+          <D:displayname>fakedav</D:displayname>
+<% elsif k == 'resourcetype' then %>
+          <D:resourcetype><D:collection/></D:resourcetype>
+<% elsif k == 'supportedlock' then %>
+          <D:supportedlock />
+<% end %>
+<% end %>
+        </D:prop>
+        <D:status>HTTP/1.1 200 OK</D:status>
+      </D:propstat>
+      <D:propstat>
+        <D:prop>
+<% @denyrespond.each_pair do |k,v| %>
+		  <D:<%=k%> />
+<% end %>
+        </D:prop>
+        <D:status>HTTP/1.1 404 Not Found</D:status>
+		 <D:responsedescription>can't support</D:responsedescription> 
+      </D:propstat>
+<% if @depth_deep then %>
+<% @category.attribs.each do |attr| %>
+    <D:response>
+      <D:href>/fakedav/<%= @category.readname %>/<%= attr.readname %>/</D:href>
+      <D:propstat>
+        <D:prop>
+<% @allowrespond.each_pair do |k,v| %>
+<% if k == 'creationdate' then %>
+          <D:creationdate>1997-12-01T17:42:21-08:00</D:creationdate>
+<% elsif k == 'getlastmodified' then %>
+          <D:getlastmodified>1997-12-01T17:42:21-08:00</D:getlastmodified>
+<% elsif k == 'displayname' then %>
+          <D:displayname><%= cat.readname %></D:displayname>
+<% elsif k == 'resourcetype' then %>
+          <D:resourcetype><D:collection/></D:resourcetype>
+<% elsif k == 'supportedlock' then %>
+          <D:supportedlock />
+<% end %>
+<% end %>
+        </D:prop>
+        <D:status>HTTP/1.1 200 OK</D:status>
+      </D:propstat>
+      <D:propstat>
+        <D:prop>
+<% @denyrespond.each_pair do |k,v| %>
+		  <D:<%=k%> />
+<% end %>
+        </D:prop>
+        <D:status>HTTP/1.1 404 Not Found</D:status>
+		 <D:responsedescription>can't support</D:responsedescription> 
+      </D:propstat>
+    </D:response>
+<% end %>
+<% end %>
+	</D:response>
+  </D:multistatus>
+  

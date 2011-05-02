@@ -1,0 +1,12 @@
+<html>
+<body>
+<h1><%= @cat.readname %></h1>
+<p><a href="/categories/<%=@cat.id %>/attribs/new">属性の追加</a></p>
+<ul>
+<% @cat.attribs.each do |attr| %>
+<li><a href="/categories/<%=@cat.id %>/attribs/<%=attr.id%>"><%= attr.readname %></li>
+<% end %>
+</ul>
+</body>
+</html>
+
