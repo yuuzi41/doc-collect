@@ -136,24 +136,42 @@ end
 	  Category.all.each {|c| data << {:href => "/fakedav/#{c.readname}/", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => c.readname, :resourcetype => true, :supportedlock => ''}}}
 	end
 	
-	params['propfind'].each_pair do |k,v|
-      case k
-	  when 'allprop'
-        render :xml => self.generate_allprop(data), :status => :multi_status
-		rendered = true
-      when 'propname'
-        render :xml => self.generate_propname(data), :status => :multi_status
-		rendered = true
-	  when 'prop'
-		render :xml => self.generate_prop(data, v.keys), :status => :multi_status
-		rendered = true
+    if request.request_method == "GET"
+	  headers.delete('DAV') #DAV属性は付けない
+	  if is_directory
+	    headers['Content-Type'] = "text/html;charset=utf-8"
+	    @name = cond_array.last
+	    @datas = data[1, data.length]
+	    render :template => 'fakedav/list_directory', :status => :ok
+	  else
+	    mime = MIME::Types.type_for(abspath)[0].to_s
+	    headers['Content-Type'] = "#{mime}"
+	    #send_file(abspath, :type => mime, :disposition => 'inline')
+	    send_file(abspath, :disposition => 'inline')
+	  end 
+    else #propfind
+  	  data = [data.first] unless request.headers['HTTP_DEPTH'] == "1"
+
+	  params['propfind'].each_pair do |k,v|
+        case k
+	    when 'allprop'
+		  render :xml => self.generate_allprop(data), :status => :multi_status
+		  rendered = true
+	    when 'propname'
+	  	  render :xml => self.generate_propname(data), :status => :multi_status
+          rendered = true
+	    when 'prop'
+		  render :xml => self.generate_prop(data, v.keys), :status => :multi_status
+		  rendered = true
+	    end
 	  end
-	end
-	render :text => '', :status => :forbidden unless rendered
+	  render :text => '', :status => :forbidden unless rendered
+    end
   end
   
   def catprop
     rendered = false
+	is_directory = true
     category = Category.find(:first, :conditions => {:readname => params[:catname]})
 	
 	data = [{:href => "/fakedav/#{category.readname}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => category.readname, :resourcetype => true, :supportedlock => ''}}]
@@ -161,25 +179,43 @@ end
 	  data << {:href => "/fakedav/#{category.readname}/#{StrAttributeSearch}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => StrAttributeSearch, :resourcetype => true, :supportedlock => ""}}
 	  data << {:href => "/fakedav/#{category.readname}/#{StrListResults}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => StrListResults, :resourcetype => true, :supportedlock => ""}}
 	end
-	
-	if category.nil?
-	  render :text => '', :status => :not_found
-	else
-      params['propfind'].each_pair do |k,v|
+
+    if category.nil?
+	  render :text => '', status => :notfound
+	  return
+	end
+    if request.request_method == "GET"
+	  headers.delete('DAV') #DAV属性は付けない
+	  if is_directory
+	    headers['Content-Type'] = "text/html;charset=utf-8"
+	    @name = cond_array.last
+	    @datas = data[1, data.length]
+	    render :template => 'fakedav/list_directory', :status => :ok
+	  else
+	    mime = MIME::Types.type_for(abspath)[0].to_s
+	    headers['Content-Type'] = "#{mime}"
+	    #send_file(abspath, :type => mime, :disposition => 'inline')
+	    send_file(abspath, :disposition => 'inline')
+	  end 
+    else #propfind
+  	  data = [data.first] unless request.headers['HTTP_DEPTH'] == "1"
+
+	  params['propfind'].each_pair do |k,v|
         case k
 	    when 'allprop'
-          render :xml => self.generate_allprop(data), :status => :multi_status
+		  render :xml => self.generate_allprop(data), :status => :multi_status
 		  rendered = true
-        when 'propname'
-          render :xml => self.generate_propname(data), :status => :multi_status
-		  rendered = true
+	    when 'propname'
+	  	  render :xml => self.generate_propname(data), :status => :multi_status
+          rendered = true
 	    when 'prop'
 		  render :xml => self.generate_prop(data, v.keys), :status => :multi_status
 		  rendered = true
 	    end
 	  end
-      render :text => '', :status => :forbidden unless rendered
-	end
+	  render :text => '', :status => :forbidden unless rendered
+    end
+
   end
   
   def attrretrieve

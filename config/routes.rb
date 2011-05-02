@@ -63,8 +63,10 @@ DocCollect::Application.routes.draw do
   
   match 'fakedav' => 'fakedav#option', :via => :options
   match 'fakedav' => 'fakedav#prop', :via => :propfind
+  match 'fakedav' => 'fakedav#prop', :via => :get
   match 'fakedav/:catname' => 'fakedav#option', :via => :options
   match 'fakedav/:catname' => 'fakedav#catprop', :via => :propfind
+  match 'fakedav/:catname' => 'fakedav#catprop', :via => :get
   match 'fakedav/:catname/*conds' => 'fakedav#option', :via => :options
   match 'fakedav/:catname/*conds' => 'fakedav#attrretrieve', :via => :propfind
   match 'fakedav/:catname/*conds' => 'fakedav#attrretrieve', :via => :get
