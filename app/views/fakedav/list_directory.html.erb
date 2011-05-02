@@ -1,4 +1,3 @@
-<% dateFormatStr = "%Y年%m月%d日(#{%w(日 月 火 水 木 金 土)[t.wday]}) %H時%M分%S秒" %>
 <html>
 <head></head>
 <body>
@@ -20,8 +19,8 @@
 <%= image_tag ("/Icon_File.png", :size=>"32x32", :alt=>"file") %>
 <% end %>
 <%= d[:prop][:displayname] %></a></td>
-<td><%= Time.parse(d[:prop][:creationdate]).strftime(DateFormatStr) %></td>
-<td><%= d[:prop][:getlastmodified].strftime(DateFormatStr) %></td>
+<td><%= Time.parse(d[:prop][:creationdate]).strftime("%Y年%m月%d日(#{%w(日 月 火 水 木 金 土)[t.wday]}) %H時%M分%S秒") %></td>
+<td><%= d[:prop][:getlastmodified].strftime("%Y年%m月%d日(#{%w(日 月 火 水 木 金 土)[t.wday]}) %H時%M分%S秒") %></td>
 <td><%= d[:prop][:getcontentlength] %></td>
 <td><%= d[:prop][:getcontenttype] %></td>
 </tr>
