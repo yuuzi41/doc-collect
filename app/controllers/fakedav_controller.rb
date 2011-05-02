@@ -140,7 +140,7 @@ end
 	  headers.delete('DAV') #DAV属性は付けない
 	  if is_directory
 	    headers['Content-Type'] = "text/html;charset=utf-8"
-	    @name = cond_array.last
+	    @name = 'fakedav'
 	    @datas = data[1, data.length]
 	    render :template => 'fakedav/list_directory', :status => :ok
 	  else
@@ -188,7 +188,7 @@ end
 	  headers.delete('DAV') #DAV属性は付けない
 	  if is_directory
 	    headers['Content-Type'] = "text/html;charset=utf-8"
-	    @name = cond_array.last
+	    @name = category.readname
 	    @datas = data[1, data.length]
 	    render :template => 'fakedav/list_directory', :status => :ok
 	  else
