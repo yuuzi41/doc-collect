@@ -130,10 +130,11 @@ end
   
   def prop
     rendered = false
+	is_directory = true
 
 	data = [{:href => '/fakedav/', :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => 'fakedav', :resourcetype => true, :supportedlock => ''}}]
-	if request.headers['HTTP_DEPTH'] == "1" then
-	  Category.all.each {|c| data << {:href => "/fakedav/#{c.readname}/", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => c.readname, :resourcetype => true, :supportedlock => ''}}}
+	Category.all.each do |c|
+	  data << {:href => "/fakedav/#{c.readname}/", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => c.readname, :resourcetype => true, :supportedlock => ''}}
 	end
 	
     if request.request_method == "GET"
@@ -175,10 +176,8 @@ end
     category = Category.find(:first, :conditions => {:readname => params[:catname]})
 	
 	data = [{:href => "/fakedav/#{category.readname}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => category.readname, :resourcetype => true, :supportedlock => ''}}]
-	if request.headers['HTTP_DEPTH'] == "1" then
-	  data << {:href => "/fakedav/#{category.readname}/#{StrAttributeSearch}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => StrAttributeSearch, :resourcetype => true, :supportedlock => ""}}
-	  data << {:href => "/fakedav/#{category.readname}/#{StrListResults}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => StrListResults, :resourcetype => true, :supportedlock => ""}}
-	end
+	data << {:href => "/fakedav/#{category.readname}/#{StrAttributeSearch}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => StrAttributeSearch, :resourcetype => true, :supportedlock => ""}}
+	data << {:href => "/fakedav/#{category.readname}/#{StrListResults}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => StrListResults, :resourcetype => true, :supportedlock => ""}}
 
     if category.nil?
 	  render :text => '', status => :notfound
