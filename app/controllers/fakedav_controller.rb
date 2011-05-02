@@ -254,12 +254,13 @@ end
 	    end
 	  end
 	  dav_path = "#{dav_path}/#{cond_array.join('/')}"
-	  data = [{:href => dav_path, :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
 	    case flag
 	    when 0
+		  data = [{:href => dav_path, :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
 	      data << {:href => "#{dav_path}/#{StrAttributeSearch}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => StrAttributeSearch, :resourcetype => true, :supportedlock => ""}}
 	      data << {:href => "#{dav_path}/#{StrListResults}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => StrListResults, :resourcetype => true, :supportedlock => ""}}
 	    when 1
+	      data = [{:href => dav_path, :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
 		  category.attribs.each do |attr|
 		    data << {:href => "#{dav_path}/#{attr.readname}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => attr.readname, :resourcetype => true, :supportedlock => ""}} unless condit.key?(attr.readname)
 		  end
@@ -270,10 +271,12 @@ end
 		    return
 		  end
 		  
+	      data = [{:href => dav_path, :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
 		  DocAttrib.find(:all, :select => "distinct(value), value", :conditions => ['attrib_id = ? and value not in (?)', attr.id, condit.keys.join(',')]).each do |dattr|
 		    data << {:href => "#{dav_path}/#{dattr.value}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => dattr.value, :resourcetype => true, :supportedlock => ""}} unless condit.key?(attr.readname)
 		  end
 		when 10
+		  data = [{:href => dav_path, :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
 		  category.documents.each do |doc|
 		    flag = true
 		    condit.each_pair do |k,v|
@@ -311,14 +314,14 @@ end
 		    return
 		  end
 		  
-		  abspath = doc.path
-		  abspath = "#{abspath}/#{rel_path.join('/')}" unless rel_path.empty?
+		  abspath = "#{doc.path}#{'/' unless rel_path.empty?}#{rel_path.join('/')}" unless rel_path.empty?
 		  unless File.exist?(abspath)
             render :text => '', :status => :not_found
 		    return
 		  end
 		  
           if File.directory?(abspath)
+		    data = [{:href => dav_path, :prop => {:creationdate => File.ctime(abspath).xmlschema, :getlastmodified => File.mtime(abspath).httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
   	        Dir.entries(abspath).each do |ent|
   		    unless ent == "." or ent == ".."
   		        if File.directory?("#{abspath}/#{ent}")
