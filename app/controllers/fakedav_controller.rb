@@ -244,7 +244,30 @@ end
 		    condit.each_pair do |k,v|
               flag = false if doc.doc_attrib.find(:first, :conditions => ["attribs.readname = ? and doc_attribs.value = ?", k, v], :include => :attrib).nil?
 			end
-		    data << {:href => "#{dav_path}/#{doc.idname}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => doc.idname, :resourcetype => doc.isdir, :supportedlock => ""}} if flag
+			if flag
+			  if doc.isdir
+		        data << {:href => "#{dav_path}/#{doc.idname}", 
+				  :prop => {
+				    :creationdate => DefaultDate.xmlschema, 
+				    :getlastmodified => DefaultDate.httpdate, 
+				    :displayname => doc.idname, 
+				    :resourcetype => true, :supportedlock => ""
+				  }
+				}
+			  else
+		        data << {:href => "#{dav_path}/#{doc.idname}", 
+				  :prop => {
+				    :creationdate => DefaultDate.xmlschema, 
+					:getlastmodified => DefaultDate.httpdate,
+					:displayname => doc.idname, 
+					:resourcetype => false, 
+					:supportedlock => "", 
+					:getcontentlength => File.size("#{abspath}/#{ent}").to_s, 
+					:getcontenttype => MIME::Types.type_for("#{abspath}/#{ent}")[0].to_s
+				  }
+				}
+			  end
+			end
 		  end
 		when 11
 		  doc = Document.find(:first, :conditions => {:idname => doc_name})
