@@ -262,8 +262,8 @@ end
 					:displayname => doc.idname, 
 					:resourcetype => false, 
 					:supportedlock => "", 
-					:getcontentlength => File.size("#{abspath}/#{ent}").to_s, 
-					:getcontenttype => MIME::Types.type_for("#{abspath}/#{ent}")[0].to_s
+					:getcontentlength => File.size(doc.path).to_s, 
+					:getcontenttype => MIME::Types.type_for(doc.path)[0].to_s
 				  }
 				}
 			  end
