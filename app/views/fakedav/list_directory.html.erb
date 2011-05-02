@@ -2,10 +2,21 @@
 <head></head>
 <body>
 <h1><%= @name %></h1>
-<ul>
+<table>
+<tr>
+<th></td>
+<th>作成日時</th>
+<th>変更日時</th>
+<th>データサイズ</th>
+</tr>
 <% @datas.each do |d| %>
-<li><a href="./<%= @name %>/<%= d[:prop][:displayname] %>"><%= d[:prop][:displayname] %></a> <%= d[:prop][:creationdate] %> <%= d[:prop][:getcontentlength] %> - <%= d[:href] %></li>
+<tr>
+<td><a href="<%= d[:href] %>"><%= d[:prop][:displayname] %></a></td>
+<td><%= d[:prop][:creationdate] %></td>
+<td><%= d[:prop][:lastmodifieddate] %></td>
+<td><%= d[:prop][:getcontentlength] %></td>
+</tr>
 <% end %>
-</ul>
+</table>
 </body>
 </html>
