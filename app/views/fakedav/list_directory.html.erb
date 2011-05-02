@@ -8,6 +8,7 @@
 <th>作成日時</th>
 <th>変更日時</th>
 <th>データサイズ</th>
+<th>MIME</th>
 </tr>
 <% @datas.each do |d| %>
 <tr>
@@ -15,12 +16,13 @@
 <% if d[:prop][:resourcetype] %>
 <%= image_tag ("/Icon_Dir.png", :size=>"32x32", :alt=>"directory") %>
 <% else %>
-<%= image_tag ("/Icon_Dir.png", :size=>"32x32", :alt=>"file") %>
+<%= image_tag ("/Icon_File.png", :size=>"32x32", :alt=>"file") %>
 <% end %>
 <%= d[:prop][:displayname] %></a></td>
 <td><%= d[:prop][:creationdate] %></td>
-<td><%= d[:prop][:lastmodifieddate] %></td>
+<td><%= d[:prop][:getlastmodified] %></td>
 <td><%= d[:prop][:getcontentlength] %></td>
+<td><%= d[:prop][:getcontenttype] %></td>
 </tr>
 <% end %>
 </table>
