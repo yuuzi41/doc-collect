@@ -304,8 +304,8 @@ end
 			  if doc.isdir
 		        data << {:href => "#{dav_path}/#{doc.idname}/", 
 				  :prop => {
-				    :creationdate => doc.created_at.xmlschema, 
-				    :getlastmodified => doc.updated_at.httpdate, 
+				    :creationdate => File.ctime(doc.path).xmlschema, 
+					:getlastmodified => File.mtime(doc.path).httpdate,
 				    :displayname => doc.idname, 
 				    :resourcetype => true, :supportedlock => ''
 				  }
