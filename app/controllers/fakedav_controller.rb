@@ -270,6 +270,7 @@ end
 	    end
 	  end
 	  dav_path = "#{dav_path}/#{cond_array.join('/')}"
+	  logger.debug "Flag = #{flag.to_s}"
 	    case flag
 	    when 0
 		  data = [{:href => "#{dav_path}/", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
@@ -324,6 +325,7 @@ end
 			end
 		  end
 		when 11
+		  logger.debug "doc_name = #{doc_name}"
 		  doc = Document.find(:first, :conditions => {:idname => doc_name})
 		  if doc.nil?
 			render :text => '', :status => :not_found
