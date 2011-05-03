@@ -151,7 +151,15 @@ end
 	    send_file(abspath, :disposition => 'inline')
 	  end 
     else #propfind
-  	  data = [data.first] unless request.headers['HTTP_DEPTH'] == "1"
+	  case request.headers['HTTP_DEPTH']
+	  when "0"
+  	    data = [data.first]
+	  when "1"
+	    data = data
+	  when "infinity"
+	    render :text => '', :status => :forbidden
+	    return
+	  end
 
 	  params['propfind'].each_pair do |k,v|
         case k
@@ -175,9 +183,9 @@ end
 	is_directory = true
     category = Category.find(:first, :conditions => {:readname => params[:catname]})
 	
-	data = [{:href => "/fakedav/#{category.readname}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => category.readname, :resourcetype => true, :supportedlock => ''}}]
-	data << {:href => "/fakedav/#{category.readname}/#{StrAttributeSearch}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => StrAttributeSearch, :resourcetype => true, :supportedlock => ""}}
-	data << {:href => "/fakedav/#{category.readname}/#{StrListResults}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => StrListResults, :resourcetype => true, :supportedlock => ""}}
+	data = [{:href => "/fakedav/#{category.readname}/", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => category.readname, :resourcetype => true, :supportedlock => ''}}]
+	data << {:href => "/fakedav/#{category.readname}/#{StrAttributeSearch}/", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => StrAttributeSearch, :resourcetype => true, :supportedlock => ''}}
+	data << {:href => "/fakedav/#{category.readname}/#{StrListResults}/", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => StrListResults, :resourcetype => true, :supportedlock => ''}}
 
     if category.nil?
 	  render :text => '', status => :notfound
@@ -197,7 +205,15 @@ end
 	    send_file(abspath, :disposition => 'inline')
 	  end 
     else #propfind
-  	  data = [data.first] unless request.headers['HTTP_DEPTH'] == "1"
+	    case request.headers['HTTP_DEPTH']
+		when "0"
+  		  data = [data.first]
+		when "1"
+		  data = data
+		when "infinity"
+		  render :text => '', :status => :forbidden
+		  return
+		end
 
 	  params['propfind'].each_pair do |k,v|
         case k
@@ -256,13 +272,13 @@ end
 	  dav_path = "#{dav_path}/#{cond_array.join('/')}"
 	    case flag
 	    when 0
-		  data = [{:href => dav_path, :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
-	      data << {:href => "#{dav_path}/#{StrAttributeSearch}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => StrAttributeSearch, :resourcetype => true, :supportedlock => ""}}
-	      data << {:href => "#{dav_path}/#{StrListResults}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => StrListResults, :resourcetype => true, :supportedlock => ""}}
+		  data = [{:href => "#{dav_path}/", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
+	      data << {:href => "#{dav_path}/#{StrAttributeSearch}/", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => StrAttributeSearch, :resourcetype => true, :supportedlock => ""}}
+	      data << {:href => "#{dav_path}/#{StrListResults}/", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => StrListResults, :resourcetype => true, :supportedlock => ""}}
 	    when 1
-	      data = [{:href => dav_path, :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
+	      data = [{:href => "#{dav_path}/", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
 		  category.attribs.each do |attr|
-		    data << {:href => "#{dav_path}/#{attr.readname}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => attr.readname, :resourcetype => true, :supportedlock => ""}} unless condit.key?(attr.readname)
+		    data << {:href => "#{dav_path}/#{attr.readname}/", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => attr.readname, :resourcetype => true, :supportedlock => ""}} unless condit.key?(attr.readname)
 		  end
 		when 2
 		  attr = Attrib.find(:first, :conditions => {:readname => enable_cond})
@@ -271,12 +287,12 @@ end
 		    return
 		  end
 		  
-	      data = [{:href => dav_path, :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
+	      data = [{:href => "#{dav_path}/", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
 		  DocAttrib.find(:all, :select => "distinct(value), value", :conditions => ['attrib_id = ? and value not in (?)', attr.id, condit.keys.join(',')]).each do |dattr|
-		    data << {:href => "#{dav_path}/#{dattr.value}", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => dattr.value, :resourcetype => true, :supportedlock => ""}} unless condit.key?(attr.readname)
+		    data << {:href => "#{dav_path}/#{dattr.value}/", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => dattr.value, :resourcetype => true, :supportedlock => ''}} unless condit.key?(attr.readname)
 		  end
 		when 10
-		  data = [{:href => dav_path, :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
+		  data = [{:href => "#{dav_path}/", :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
 		  category.documents.each do |doc|
 		    flag = true
 		    condit.each_pair do |k,v|
@@ -284,12 +300,12 @@ end
 			end
 			if flag
 			  if doc.isdir
-		        data << {:href => "#{dav_path}/#{doc.idname}", 
+		        data << {:href => "#{dav_path}/#{doc.idname}/", 
 				  :prop => {
 				    :creationdate => doc.created_at.xmlschema, 
 				    :getlastmodified => doc.updated_at.httpdate, 
 				    :displayname => doc.idname, 
-				    :resourcetype => true, :supportedlock => ""
+				    :resourcetype => true, :supportedlock => ''
 				  }
 				}
 			  else
@@ -321,13 +337,33 @@ end
 		  end
 		  
           if File.directory?(abspath)
-		    data = [{:href => dav_path, :prop => {:creationdate => File.ctime(abspath).xmlschema, :getlastmodified => File.mtime(abspath).httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
+		    data = [{:href => "#{dav_path}/", :prop => {:creationdate => File.ctime(abspath).xmlschema, :getlastmodified => File.mtime(abspath).httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
   	        Dir.entries(abspath).each do |ent|
   		    unless ent == "." or ent == ".."
   		        if File.directory?("#{abspath}/#{ent}")
-			      data << {:href => "#{dav_path}/#{ent}", :prop => {:creationdate => File.ctime("#{abspath}/#{ent}").xmlschema, :getlastmodified => File.mtime("#{abspath}/#{ent}").httpdate, :displayname => ent, :resourcetype => true, :supportedlock => ""}}
+			      data << {
+				    :href => "#{dav_path}/#{ent}/", 
+					:prop => {
+					  :creationdate => File.ctime("#{abspath}/#{ent}").xmlschema, 
+					  :getlastmodified => File.mtime("#{abspath}/#{ent}").httpdate, 
+					  :displayname => ent, 
+					  :resourcetype => true, 
+					  :supportedlock => ''
+					}
+				  }
 			    else
-			      data << {:href => "#{dav_path}/#{ent}", :prop => {:creationdate => File.ctime("#{abspath}/#{ent}").xmlschema, :getlastmodified => File.mtime("#{abspath}/#{ent}").httpdate, :displayname => ent, :resourcetype => false, :supportedlock => "", :getcontentlength => File.size("#{abspath}/#{ent}").to_s, :getcontenttype => MIME::Types.type_for("#{abspath}/#{ent}")[0].to_s}}
+			      data << {
+				    :href => "#{dav_path}/#{ent}", 
+					:prop => {
+					  :creationdate => File.ctime("#{abspath}/#{ent}").xmlschema, 
+					  :getlastmodified => File.mtime("#{abspath}/#{ent}").httpdate, 
+					  :displayname => ent, 
+					  :resourcetype => false, 
+					  :supportedlock => "", 
+					  :getcontentlength => File.size("#{abspath}/#{ent}").to_s, 
+					  :getcontenttype => MIME::Types.type_for("#{abspath}/#{ent}")[0].to_s
+					}
+				  }
 		        end
 		      end
 	        end
@@ -354,7 +390,15 @@ end
 		  send_file(abspath, :disposition => 'inline')
 		end 
 	  else #propfind
-		data = [data.first] unless request.headers['HTTP_DEPTH'] == "1"
+	    case request.headers['HTTP_DEPTH']
+		when "0"
+  		  data = [data.first]
+		when "1"
+		  data = data
+		when "infinity"
+		  render :text => '', :status => :forbidden
+		  return
+		end
 
 		params['propfind'].each_pair do |k,v|
 		  case k
