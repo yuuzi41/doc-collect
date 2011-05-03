@@ -1,6 +1,7 @@
 body
 {
 	font-size: 15px;
+	padding: 0;
 }
 
 #dirname
@@ -8,10 +9,10 @@ body
 	margin-top: 20px;
 	margin-left: 0;
 	margin-right: 0;
-	margin-bottom: 10px;
-	padding: 5px 20px;
+	margin-bottom: 0;
+	padding: 10px 30px;
 	vertical-align: middle;
-	border-bottom: 1px solid black;
+	border-bottom: 2px solid #404040;
 }
 
 #dircontent
@@ -23,7 +24,7 @@ body
 {
 	margin-left: 100px;
 	width: 1000px;
-	border-left: 3px solid #808080;
+	border-left: 2px solid #808080;
 }
 
 .cname
@@ -38,4 +39,9 @@ body
 .ccdate, .cmdate
 {
 	font-size: 13px;
+}
+.csize, .cmime
+{
+	font-size: 13px;
+	font-style: italic;
 }
