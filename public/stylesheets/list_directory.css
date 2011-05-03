@@ -1,3 +1,19 @@
+body
+{
+	font-size: 12px;
+}
+
+#dirname
+{
+	margin-top: 20px;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 10px;
+	padding: 5px 20px;
+	vertical-align: middle;
+	border-bottom: 1px solid black;
+}
+
 #dircontent
 {
 
@@ -5,8 +21,17 @@
 
 #dirtable
 {
-	margin-left: auto;
-	margin-right: 100px;
+	margin-left: 100px;
 	width: 1000px;
-	border-left: 1px solid #808080;
+	border-left: 3px solid #808080;
+}
+
+.cname
+{
+	vertical-align: middle;
+}
+
+.ccdate, .cmdate
+{
+	font-size: 10px;
 }

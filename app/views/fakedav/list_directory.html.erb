@@ -1,6 +1,5 @@
 <%= stylesheet_link_tag "list_directory" %>
-<h1><%= image_tag("/Icon_Dir.png", :size=>"64x64", :alt=>"directory") %><%= @name %></h1>
-<hr />
+<h1 id="dirname"><%= image_tag("/Icon_Dir.png", :size=>"64x64", :alt=>"directory") %><%= @name %></h1>
 <div id="dircontent">
 <table id="dirtable">
 <tr>
@@ -11,25 +10,25 @@
 <th>MIME</th>
 </tr>
 <tr>
-<td><a href=".."><%= image_tag("/Icon_Dir.png", :size=>"32x32", :alt=>"directory") %>..</a></td>
-<td />
-<td />
-<td />
-<td />
+<td class="cname"><a href=".."><%= image_tag("/Icon_Dir.png", :size=>"32x32", :alt=>"directory") %>..</a></td>
+<td class="ccdate" />
+<td class="cmdate" />
+<td class="csize" />
+<td class="cmime" />
 </tr>
 <% @datas.each do |d| %>
 <tr>
-<td><a href="<%= d[:href] %>">
+<td class="cname"><a href="<%= d[:href] %>">
 <% if d[:prop][:resourcetype] %>
 <%= image_tag("/Icon_Dir.png", :size=>"32x32", :alt=>"directory") %>
 <% else %>
 <%= image_tag("/Icon_File.png", :size=>"32x32", :alt=>"file") %>
 <% end %>
 <%= d[:prop][:displayname] %></a></td>
-<td><%= Time.parse(d[:prop][:creationdate]).strftime("%Y年%m月%d日 %H時%M分%S秒") %></td>
-<td><%= Time.parse(d[:prop][:getlastmodified]).strftime("%Y年%m月%d日 %H時%M分%S秒") %></td>
-<td><%= d[:prop][:getcontentlength] %></td>
-<td><%= d[:prop][:getcontenttype] %></td>
+<td class="ccdate"><%= Time.parse(d[:prop][:creationdate]).strftime("%Y年%m月%d日 %H時%M分%S秒") %></td>
+<td class="cmdate"><%= Time.parse(d[:prop][:getlastmodified]).strftime("%Y年%m月%d日 %H時%M分%S秒") %></td>
+<td class="csize"><%= d[:prop][:getcontentlength] %></td>
+<td class="cmime"><%= d[:prop][:getcontenttype] %></td>
 </tr>
 <% end %>
 </table>
