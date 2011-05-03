@@ -247,6 +247,7 @@ end
 	is_directory = true
 	
 	if category.nil?
+	  logger.debug "Category '#{params[:catname]}' not found"
 	  render :text => '', :status => :not_found
 	else
 	  cond_array.each do |itm|
