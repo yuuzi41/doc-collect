@@ -1,14 +1,21 @@
-<html>
-<head></head>
-<body>
+<%= stylesheet_link_tag "list_directory" %>
 <h1><%= image_tag("/Icon_Dir.png", :size=>"64x64", :alt=>"directory") %><%= @name %></h1>
-<table>
+<hr />
+<div id="dircontent">
+<table id="dirtable">
 <tr>
 <th></th>
 <th>作成日時</th>
 <th>変更日時</th>
 <th>データサイズ</th>
 <th>MIME</th>
+</tr>
+<tr>
+<td><a href=".."><%= image_tag("/Icon_Dir.png", :size=>"32x32", :alt=>"directory") %>..</a></td>
+<td />
+<td />
+<td />
+<td />
 </tr>
 <% @datas.each do |d| %>
 <tr>
@@ -26,5 +33,4 @@
 </tr>
 <% end %>
 </table>
-</body>
-</html>
+</dir>
