@@ -16,8 +16,6 @@ end
 
 
 class FakedavController < ApplicationController
-  before_filter :set_charset, :set_dav
-  
   #########
 #around_filter :profiler, :only => [:attrretrieve], :if => lambda{Rails.env.profiler?}
 around_filter :profiler, :only => [:attrretrieve], :if => lambda{Rails.env.development?}
@@ -38,13 +36,6 @@ end
   DefaultDate = Time.utc(2011, 4, 1)
   StrAttributeSearch = '属性絞り込み'
   StrListResults = '一覧'
-  
-  def set_charset
-    headers['Content-Type'] = "application/xml;charset=utf-8"
-  end
-  def set_dav
-    headers['DAV'] = "1"
-  end
   
   def generate_allprop(data)
     #xml = Builder::XmlMarkup.new(:indent => 2)
@@ -131,7 +122,6 @@ end
   end
   
   def prop
-    rendered = false
 	is_directory = true
 
 	data = [{:href => '/fakedav/', :prop => {:creationdate => DefaultDate.xmlschema, :getlastmodified => DefaultDate.httpdate, :displayname => 'fakedav', :resourcetype => true, :supportedlock => ''}}]
@@ -153,35 +143,26 @@ end
 	    send_file(abspath, :disposition => 'inline')
 	  end 
     else #propfind
+      headers['DAV'] = "1"
+	  headers['Content-Type'] = "application/xml;charset=utf-8"
 	  case request.headers['HTTP_DEPTH']
-	  when "0"
-  	    data = [data.first]
-	  when "1"
-	    data = data
-	  when "infinity"
-	    render :text => '', :status => :forbidden
-	    return
+	  when "0" then data = [data.first]
+	  when "1" then data = data
+	  when "infinity" then render(:nothing => true, :status => :forbidden) and return
 	  end
 
 	  params['propfind'].each_pair do |k,v|
         case k
-	    when 'allprop'
-		  render :xml => self.generate_allprop(data), :status => :multi_status
-		  rendered = true
-	    when 'propname'
-	  	  render :xml => self.generate_propname(data), :status => :multi_status
-          rendered = true
-	    when 'prop'
-		  render :xml => self.generate_prop(data, v.keys), :status => :multi_status
-		  rendered = true
-	    end
+	    when 'allprop' then render(:xml => self.generate_allprop(data), :status => :multi_status) and return
+		when 'propname' then render(:xml => self.generate_propname(data), :status => :multi_status) and return
+        when 'prop' then render(:xml => self.generate_prop(data, v.keys), :status => :multi_status) and return
+		end
 	  end
-	  render :text => '', :status => :forbidden unless rendered
+	  render :nothing => true, :status => :forbidden
     end
   end
   
   def catprop
-    rendered = false
 	is_directory = true
     category = Category.find(:first, :conditions => {:readname => params[:catname]})
 	
@@ -207,36 +188,27 @@ end
 	    send_file(abspath, :disposition => 'inline')
 	  end 
     else #propfind
-	    case request.headers['HTTP_DEPTH']
-		when "0"
-  		  data = [data.first]
-		when "1"
-		  data = data
-		when "infinity"
-		  render :text => '', :status => :forbidden
-		  return
-		end
+	  headers['DAV'] = "1"
+	  headers['Content-Type'] = "application/xml;charset=utf-8"
+      case request.headers['HTTP_DEPTH']
+	  when "0" then data = [data.first]
+	  when "1" then data = data
+	  when "infinity" then render(:text => '', :status => :forbidden) and return
+	  end
 
 	  params['propfind'].each_pair do |k,v|
         case k
-	    when 'allprop'
-		  render :xml => self.generate_allprop(data), :status => :multi_status
-		  rendered = true
-	    when 'propname'
-	  	  render :xml => self.generate_propname(data), :status => :multi_status
-          rendered = true
-	    when 'prop'
-		  render :xml => self.generate_prop(data, v.keys), :status => :multi_status
-		  rendered = true
+	    when 'allprop' then render(:xml => self.generate_allprop(data), :status => :multi_status) and return
+	    when 'propname' then render(:xml => self.generate_propname(data), :status => :multi_status) and return
+	    when 'prop' then render(:xml => self.generate_prop(data, v.keys), :status => :multi_status) and return 
 	    end
 	  end
-	  render :text => '', :status => :forbidden unless rendered
+	  render :nothing => true, :status => :forbidden
     end
 
   end
   
   def attrretrieve
-    rendered = false
     flag = 0
     category = Category.find(:first, :conditions => {:readname => params[:catname]})
 	enable_cond = ""
@@ -399,30 +371,22 @@ end
 		  send_file(abspath, :disposition => 'inline')
 		end 
 	  else #propfind
+		headers['DAV'] = "1"
+		headers['Content-Type'] = "application/xml;charset=utf-8"
 	    case request.headers['HTTP_DEPTH']
-		when "0"
-  		  data = [data.first]
-		when "1"
-		  data = data
-		when "infinity"
-		  render :text => '', :status => :forbidden
-		  return
+		when "0" then data = [data.first]
+		when "1" then data = data
+		when "infinity" then render(:nothing => true, :status => :forbidden) and return
 		end
 
 		params['propfind'].each_pair do |k,v|
 		  case k
-		  when 'allprop'
-		    render :xml => self.generate_allprop(data), :status => :multi_status
-			rendered = true
-		  when 'propname'
-		    render :xml => self.generate_propname(data), :status => :multi_status
-		    rendered = true
-		  when 'prop'
-		    render :xml => self.generate_prop(data, v.keys), :status => :multi_status
-		    rendered = true
+		  when 'allprop' then render(:xml => self.generate_allprop(data), :status => :multi_status) and return
+		  when 'propname' then render(:xml => self.generate_propname(data), :status => :multi_status) and return
+		  when 'prop' then render(:xml => self.generate_prop(data, v.keys), :status => :multi_status) and return
 	  	  end
 		end
-	    render :text => '', :status => :forbidden unless rendered
+	    render :nothing => true, :status => :forbidden
 	  end
 	end
   end
