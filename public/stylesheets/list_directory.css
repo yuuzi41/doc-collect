@@ -29,6 +29,11 @@ body
 	border-left: 2px solid #808080;
 }
 
+#dirtable tbody
+{
+	width: auto;
+}
+
 .cname
 {
 }
