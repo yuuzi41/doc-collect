@@ -163,6 +163,8 @@ end
   end
   
   def catprop
+	params[:catname] = params[:catname].force_encoding("UTF-8-MAC").encode("UTF-8") #for macosx-client support
+
 	is_directory = true
     category = Category.find(:first, :conditions => {:readname => params[:catname]})
 	
@@ -209,6 +211,9 @@ end
   end
   
   def attrretrieve
+	params[:catname] = params[:catname].force_encoding("UTF-8-MAC").encode("UTF-8") #for macosx-client support
+	params[:conds] = params[:conds].force_encoding("UTF-8-MAC").encode("UTF-8") #for macosx-client support
+
     flag = 0
     category = Category.find(:first, :conditions => {:readname => params[:catname]})
 	enable_cond = ""
