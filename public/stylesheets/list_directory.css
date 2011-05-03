@@ -34,13 +34,13 @@ body
 	min-width: 1000px;
 	width: auto;
 	background-color: white;
+	padding: 10px;
 	border-left: 2px solid #808080;
 }
 
 #dirtable
 {
 	width: 100%;
-	margin: 10px;
 }
 
 #dirtable tbody
