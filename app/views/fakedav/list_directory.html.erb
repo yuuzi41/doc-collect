@@ -1,6 +1,7 @@
 <%= stylesheet_link_tag "list_directory" %>
 <h1 id="dirname"><%= image_tag("/Icon_Dir.png", :size=>"64x64", :alt=>"directory", :class=>"vmiddle") %><%= @name %></h1>
 <div id="dircontent">
+<div id="dirtablediv">
 <table id="dirtable">
 <tbody>
 <tr>
@@ -34,6 +35,7 @@
 <% end %>
 </tbody>
 </table>
+</div>
 </div>
 <div id="footer">
 <p>DocCollect, Powered by Ruby on Rails</p>
