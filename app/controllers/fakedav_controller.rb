@@ -1,3 +1,5 @@
+# -*- coding:utf-8 -*-
+
 require 'builder'
 require 'mime/types'
 require 'uri'
