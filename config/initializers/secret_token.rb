@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-DocCollect::Application.config.secret_token = 'a2f9f0839bc0665fff28b52bb7bd897be944f601eca9c4ac270ff7a9074221b9e93be1969e43945fa89d0cc53c149ab8c0fb6df83a468ea1723a3d54c752829c'
+DocCollect::Application.config.secret_token = 'f67f272519d7750ef950c55bbdab85f836c655ff2887e3179818c57b2d2c1b6268d1ab859e5acc467dd22faab3f426410407a02ca794da98d59c90f0d9998cff'
