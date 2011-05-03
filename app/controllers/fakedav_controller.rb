@@ -77,7 +77,7 @@ end
     xml = Builder::XmlMarkup.new
     
 	xml.instruct!
-	xmlobj = xml.multistatus("xmlns:D" => "DAV:") do
+	xmlobj = xml.D(:multistatus, "xmlns:D" => "DAV:") do
 	  data.each do |resps|
 	    xml.response do
           xml.D :href, URI.escape(resps[:href])
@@ -98,7 +98,7 @@ end
     xml = Builder::XmlMarkup.new
     
 	xml.instruct!
-	xmlobj = xml.D (:multistatus, "xmlns:D" => "DAV:") do
+	xmlobj = xml.D(:multistatus, "xmlns:D" => "DAV:") do
 	  data.each do |resps|
 	    xml.D :response do
           xml.D :href, URI.escape(resps[:href])
