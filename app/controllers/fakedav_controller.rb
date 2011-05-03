@@ -334,12 +334,15 @@ end
 		  end
 		  
 		  abspath = "#{doc.path}#{'/' unless rel_path.empty?}#{rel_path.join('/')}" unless rel_path.empty?
+		  logger.info "target path = #{abspath}"
 		  unless File.exist?(abspath)
+			logger.info "target not found"
             render :text => '', :status => :not_found
 		    return
 		  end
 		  
           if File.directory?(abspath)
+			logger.info "target is directory"
 		    data = [{:href => "#{dav_path}/", :prop => {:creationdate => File.ctime(abspath).xmlschema, :getlastmodified => File.mtime(abspath).httpdate, :displayname => cond_array.last, :resourcetype => true, :supportedlock => ''}}]
   	        Dir.entries(abspath).each do |ent|
   		    unless ent == "." or ent == ".."
@@ -371,6 +374,7 @@ end
 		      end
 	        end
 	      else
+			logger.info "target is file"
 	        is_directory = false
             data = [{:href => dav_path, :prop => {:creationdate => File.ctime(abspath).xmlschema, :getlastmodified => File.mtime(abspath).httpdate, :displayname => cond_array.last, :resourcetype => false, :supportedlock => '', :getcontentlength => File.size(abspath).to_s, :getcontenttype => MIME::Types.type_for(abspath)[0].to_s}}]
           end
