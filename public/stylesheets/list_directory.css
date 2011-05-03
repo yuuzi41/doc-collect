@@ -11,13 +11,12 @@ body
 	margin-right: 0;
 	margin-bottom: 0;
 	padding: 10px 30px;
-	vertical-align: middle;
-	border-bottom: 2px solid #404040;
+	border-bottom: 1px solid #404040;
 }
 
 #dircontent
 {
-
+	background-color: #a0a0a0;
 }
 
 #dirtable
@@ -43,5 +42,21 @@ body
 .csize, .cmime
 {
 	font-size: 13px;
+	font-style: italic;
+}
+
+#footer
+{
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 20px;
+	padding: 10px 30px;
+	border-top: 2px solid #c0c0c0;
+}
+
+#footer p
+{
+	text-align: right;
 	font-style: italic;
 }
