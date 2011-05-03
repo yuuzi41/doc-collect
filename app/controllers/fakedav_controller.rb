@@ -300,7 +300,7 @@ end
 			end
 		  end
 		when 11
-		  logger.info "doc_name = #{doc_name}"
+		  logger.info "doc_name = #{doc_name}, #{doc_name.encoding}"
 		  doc = Document.find(:first, :conditions => {:idname => doc_name})
 		  if doc.nil?
 			render :nothing => true, :status => :not_found
