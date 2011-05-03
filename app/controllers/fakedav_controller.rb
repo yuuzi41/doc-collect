@@ -250,7 +250,7 @@ end
 	
 	if category.nil?
 	  logger.info "Category '#{params[:catname]}' not found"
-	  render :text => '', :status => :not_found
+	  render :nothing, :status => :not_found
 	else
 	  cond_array.each do |itm|
 	    case flag
@@ -287,7 +287,7 @@ end
 		when 2
 		  attr = Attrib.find(:first, :conditions => {:readname => enable_cond})
 		  if attr.nil?
-			render :text => '', :status => :not_found
+			render :nothing, :status => :not_found
 		    return
 		  end
 		  
@@ -331,7 +331,7 @@ end
 		  logger.info "doc_name = #{doc_name}"
 		  doc = Document.find(:first, :conditions => {:idname => doc_name})
 		  if doc.nil?
-			render :text => '', :status => :not_found
+			render :nothing, :status => :not_found
 		    return
 		  end
 		  
@@ -339,7 +339,7 @@ end
 		  logger.info "target path = #{abspath}"
 		  unless File.exist?(abspath)
 			logger.info "target not found"
-            render :text => '', :status => :not_found
+            render :nothing, :status => :not_found
 		    return
 		  end
 		  
@@ -381,7 +381,7 @@ end
             data = [{:href => dav_path, :prop => {:creationdate => File.ctime(abspath).xmlschema, :getlastmodified => File.mtime(abspath).httpdate, :displayname => cond_array.last, :resourcetype => false, :supportedlock => '', :getcontentlength => File.size(abspath).to_s, :getcontenttype => MIME::Types.type_for(abspath)[0].to_s}}]
           end
 		else 
-          render :text => '', :status => :not_found
+          render :nothing, :status => :not_found
 		  return
 		end
 
