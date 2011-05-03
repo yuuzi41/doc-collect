@@ -5,6 +5,13 @@ body
 	margin: 0;
 }
 
+#container
+{
+	min-width: 1200px;
+	margin: 0;
+	padding: 0;
+}
+
 #dirname
 {
 	margin-top: 20px;
@@ -12,12 +19,12 @@ body
 	margin-right: 0;
 	margin-bottom: 0;
 	padding: 10px 30px;
-	border-bottom: 1px solid #404040;
+	border-bottom: 1px solid #808080;
 }
 
 #dircontent
 {
-	background-color: #a0a0a0;
+	background-color: #c0c0c0;
 }
 
 #dirtablediv
@@ -27,7 +34,7 @@ body
 	min-width: 1000px;
 	width: auto;
 	background-color: white;
-	border-left: 2px solid #808080;
+	border-left: 2px solid #e0e0e0;
 }
 
 #dirtable
@@ -66,7 +73,7 @@ body
 	margin-right: 0;
 	margin-bottom: 20px;
 	padding: 10px 30px;
-	border-top: 2px solid #c0c0c0;
+	border-top: 2px solid #e0e0e0;
 }
 
 #footer p
