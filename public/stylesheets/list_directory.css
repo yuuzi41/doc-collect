@@ -7,7 +7,7 @@ body
 
 #container
 {
-	min-width: 1200px;
+	min-width: 1100px;
 	margin: 0;
 	padding: 0;
 }
@@ -29,17 +29,18 @@ body
 
 #dirtablediv
 {
-	margin-left: 100px;
+	margin-left: 150px;
 	margin-right: 0;
 	min-width: 1000px;
 	width: auto;
 	background-color: white;
-	border-left: 2px solid #e0e0e0;
+	border-left: 2px solid #808080;
 }
 
 #dirtable
 {
 	width: 100%;
+	margin: 10px;
 }
 
 #dirtable tbody
@@ -73,7 +74,7 @@ body
 	margin-right: 0;
 	margin-bottom: 20px;
 	padding: 10px 30px;
-	border-top: 2px solid #e0e0e0;
+	border-top: 2px solid #808080;
 }
 
 #footer p
