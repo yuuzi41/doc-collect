@@ -392,6 +392,8 @@ end
   end
   
   def option
-	render :text => ''
+    headers['DAV'] = "1"
+    headers['Content-Type'] = "application/xml;charset=utf-8"
+	render :nothing => true, :status => :ok
   end
 end
