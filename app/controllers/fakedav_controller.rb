@@ -333,7 +333,7 @@ end
 		    return
 		  end
 		  
-		  abspath = "#{doc.path}#{'/' unless rel_path.empty?}#{rel_path.join('/')}" unless rel_path.empty?
+		  abspath = "#{doc.path}#{'/' unless rel_path.empty?}#{rel_path.join('/')}"
 		  logger.info "target path = #{abspath}"
 		  unless File.exist?(abspath)
 			logger.info "target not found"
