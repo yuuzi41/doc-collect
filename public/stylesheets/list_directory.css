@@ -32,13 +32,13 @@ a:active  { color: #5e1541 }
 	margin: 0;
 	padding: 10px 30px;
 	border-top: 1px solid #d0d0d0;
-	border-bottom: 2px solid #e0e0e0;
+	border-bottom: 1px solid #808080;
 }
 
 #dircontent
 {
 	background-color: #c0c0c0;
-	border-bottom: 1px solid #d0d0d0;
+	border-bottom: 1px solid #808080;
 }
 
 #dirtablediv
@@ -56,7 +56,7 @@ a:active  { color: #5e1541 }
 {
 	width: 100%;
 	border-collapse: collapse;
-	border: 1px solid #d0d0d0;
+	border: 1px solid #c0c0c0;
 }
 
 #dirtable tbody
@@ -110,17 +110,31 @@ a:active  { color: #5e1541 }
 	padding: 10px 30px;
 }
 
-#credits
+#footlinklist
+{
+	height: 17px;
+}
+
+#footlinklist li
+{
+	font-size: 13px;
+	list-style-type: none;
+	float: left;
+	margin: 0 10px 0 0;
+	color: #101010;
+}
+
+#footcredits
 {
 	float: right;
 	width: 400px;
 	padding: 7px 0;
 }
 
-#credits p
+#footcredits p
 {
 	font-size: 13px;
 	font-style: italic;
-	color: #181818;
+	color: #404040;
 	margin: 3px 0;
 }
