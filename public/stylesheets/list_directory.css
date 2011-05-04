@@ -113,6 +113,8 @@ a:active  { color: #5e1541 }
 #footlinklist
 {
 	height: 17px;
+	margin: 10px 0;
+	width: 500px;
 }
 
 #footlinklist li
@@ -127,7 +129,7 @@ a:active  { color: #5e1541 }
 #footcredits
 {
 	float: right;
-	width: 400px;
+	width: 350px;
 	padding: 7px 0;
 }
 
