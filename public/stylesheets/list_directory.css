@@ -6,6 +6,12 @@ body
 	margin: 0;
 }
 
+a { text-decoration: none; }
+a:link    { color: #7ea5d9 }
+a:visited { color: #5e46cf }
+a:hover   { color: #a7ecf2; text-decoration: underline; }
+a:active  { color: #5e0691 }
+
 #container
 {
 	background-color:#e0e0e0;
@@ -22,7 +28,7 @@ body
 #dirname
 {
 	font-size: 28px;
-	background-color: #f0f0f0;
+	background-color: white;
 	margin: 0;
 	padding: 10px 30px;
 	border-top: 1px solid #d0d0d0;
@@ -115,6 +121,6 @@ body
 {
 	font-size: 13px;
 	font-style: italic;
-	font-color: #181818;
+	color: #181818;
 	margin: 3px 0;
 }
