@@ -50,6 +50,7 @@ body
 {
 	width: 100%;
 	border-collapse: collapse;
+	border: 1px solid #d0d0d0;
 }
 
 #dirtable tbody
