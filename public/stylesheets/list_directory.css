@@ -1,6 +1,6 @@
 body
 {
-	background-color:#f0f0f0;
+	background-color:#e0e0e0;
 	font-size: 15px;
 	padding: 0;
 	margin: 0;
@@ -8,7 +8,7 @@ body
 
 #container
 {
-	background-color:#f0f0f0;
+	background-color:#e0e0e0;
 	min-width: 1100px;
 	margin: 0;
 	padding: 0;
@@ -22,17 +22,17 @@ body
 #dirname
 {
 	font-size: 28px;
-	background-color: white;
+	background-color: #f0f0f0;
 	margin: 0;
 	padding: 10px 30px;
-	border-top: 1px solid #e0e0e0;
-	border-bottom: 1px solid #e0e0e0;
+	border-top: 1px solid #d0d0d0;
+	border-bottom: 2px solid #e0e0e0;
 }
 
 #dircontent
 {
 	background-color: #c0c0c0;
-	border-bottom: 1px solid #e0e0e0;
+	border-bottom: 1px solid #d0d0d0;
 }
 
 #dirtablediv
@@ -43,7 +43,7 @@ body
 	width: auto;
 	background-color: white;
 	padding: 10px;
-	border-left: 5px solid #808080;
+	border-left: 1px solid #808080;
 }
 
 #dirtable
@@ -108,11 +108,13 @@ body
 {
 	float: right;
 	width: 400px;
+	padding: 7px 0;
 }
 
 #credits p
 {
 	font-size: 13px;
 	font-style: italic;
+	font-color: #181818;
 	margin: 3px 0;
 }
