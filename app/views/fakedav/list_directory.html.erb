@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag "list_directory" %>
 <div id="container">
-<h1><%= link_to(image_tag("/TitleImage.png", :size=>"64x64", :alt=>"directory", :class=>"titleimage"), {:controller=>"root",:action=>"index"}) %></h1>
+<h1 id="title"><%= link_to(image_tag("/TitleImage.png", :alt=>"DocCollect", :class=>"titleimage"), {:controller=>"root",:action=>"index"}) %></h1>
 <h2 id="dirname"><%= image_tag("/Icon_Dir.png", :size=>"64x64", :alt=>"directory", :class=>"vmiddle") %><%= @name %></h1>
 <div id="dircontent">
 <div id="dirtablediv">
@@ -40,7 +40,9 @@
 </div>
 </div>
 <div id="footer">
+<div id="credits">
 <p>DocCollect, DAV-ed Document Management System</p>
 <p>Powered by Ruby on Rails</p>
+</div>
 </div>
 </div>
