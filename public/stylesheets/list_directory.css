@@ -21,10 +21,9 @@ body
 
 #dirname
 {
-	margin-top: 20px;
-	margin-left: 0;
-	margin-right: 0;
-	margin-bottom: 0;
+	font-size: 28px;
+	background-color: white;
+	margin: 0;
 	padding: 10px 30px;
 	border-top: 1px solid #e0e0e0;
 	border-bottom: 1px solid #e0e0e0;
@@ -50,11 +49,29 @@ body
 #dirtable
 {
 	width: 100%;
+	border-collapse: collapse;
 }
 
 #dirtable tbody
 {
 	width: auto;
+}
+
+.dirtable_head
+{
+	padding: 5px 0;
+	background-color: #f0f0f0;
+}
+
+.dirtable_head th
+{
+	font-weight: normal;
+	text-align: left;
+}
+
+.dirtable_item
+{
+	padding: 5px 0;
 }
 
 .cname
