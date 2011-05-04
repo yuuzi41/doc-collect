@@ -7,10 +7,10 @@ body
 }
 
 a { text-decoration: none; }
-a:link    { color: #7ea5d9 }
+a:link    { color: #7095cf }
 a:visited { color: #5e46cf }
-a:hover   { color: #a7ecf2; text-decoration: underline; }
-a:active  { color: #5e0691 }
+a:hover   { color: #70e0e2; text-decoration: underline; }
+a:active  { color: #5e1541 }
 
 #container
 {
