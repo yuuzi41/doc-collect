@@ -3,10 +3,10 @@
 </head>
 <body>
 <h1>種類一覧</h1>
-<p><a href="/categories/new">新規</a></p>
+<p><%= link_to('新規', {:controller=>"categories",:action=>"new"}) %></p>
 <ul>
 <% @categories.each do |cat| %>
-<li><a href="/categories/<%= cat.id %>"><%= cat.readname %></a></li>
+<li><%= link_to(cat.readname, {:controller=>"categories",:action=>"show",:id => cat.id}) %></li>
 <% end %>
 </ul>
 </body>
