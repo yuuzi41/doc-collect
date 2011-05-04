@@ -4,7 +4,7 @@
 <% @documents.each do |doc| %>
 <li>
 <%= link_to doc.idname,:controller=>"documents",:action=>"show",:id => doc.id %> 
-<%= link_to '削除', doc, :confirm => 'Are you sure?', :method => :delete %>
+<%= link_to '削除', :controller => "documents", :action=>"destroy",:id => doc.id, :confirm => 'Are you sure?', :method => :delete %>
 </li>
 <% end %>
 </ul>
