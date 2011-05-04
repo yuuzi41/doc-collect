@@ -1,12 +1,11 @@
-<html>
-<body>
 <h1><%= Category.find(params[:category_id]).readname %> ドキュメント一覧</h1>
 <p><a href="/categories/<%=params[:category_id]%>/documents/new">追加</a></p>
 <ul>
 <% @documents.each do |doc| %>
-<li><a href="/categories/<%=params[:category_id]%>/documents/<%= doc.id %>"><%= doc.idname %></a> <a href="/categories/<%=params[:category_id]%>/documents/<%= doc.id %>" data-confirm="削除してよろしいですか？" data-method="delete" rel="nofollow">削除</a></li>
+<li>
+<%= link_to doc.idname,:controller=>"documents",:action=>"show",:id => doc.id %> 
+<%= link_to '削除', doc, :confirm => 'Are you sure?', :method => :delete %>
+</li>
 <% end %>
 </ul>
-</body>
-</html>
 
