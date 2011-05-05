@@ -9,7 +9,22 @@
 </head>
 <body>
 
+<div id="container">
+<h1 id="title"><%= link_to(image_tag("/TitleImage.png", :alt=>"DocCollect", :class=>"vmiddle"), {:controller=>"root",:action=>"index"}) %></h1>
+
 <%= yield %>
+
+<div id="footer">
+<div id="footcredits">
+<p>DocCollect; DAV-ed Document Management System</p>
+<p>Powered by Ruby on Rails</p>
+</div>
+<ul id="footlinklist">
+<li>&copy; 2011 DocCollect. All rights reserved.</li>
+<li><a href="http://validator.w3.org/check?uri=referer">Valid HTML</a></li>
+</ul>
+</div>
+</div>
 
 </body>
 </html>
