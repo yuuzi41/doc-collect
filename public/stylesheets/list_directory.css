@@ -42,6 +42,17 @@ img { border: 0; }
 .recentpath
 {
 	float: right;
+	height: 17px;
+	margin: 10px 0;
+	padding: 0;
+}
+.recentpath li
+{
+	font-size: 13px;
+	list-style-type: none;
+	float: left;
+	margin: 0 10px 0 0;
+	color: #404040;
 }
 
 #dirname
