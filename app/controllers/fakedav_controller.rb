@@ -151,6 +151,8 @@ end
 	  when "infinity" then render(:nothing => true, :status => :forbidden) and return
 	  end
 
+	  if params['propfind'].nil? then render(:nothing => true, :status =>:ok) and return
+	  if params['propfind'].count > 1 then render(:nothing => true, :status =>:bad_request) and return
 	  params['propfind'].each_pair do |k,v|
         case k
 	    when 'allprop' then render(:xml => self.generate_allprop(data), :status => :multi_status) and return
@@ -198,6 +200,8 @@ end
 	  when "infinity" then render(:text => '', :status => :forbidden) and return
 	  end
 
+	  if params['propfind'].nil? then render(:nothing => true, :status =>:ok) and return
+	  if params['propfind'].count > 1 then render(:nothing => true, :status =>:bad_request) and return
 	  params['propfind'].each_pair do |k,v|
         case k
 	    when 'allprop' then render(:xml => self.generate_allprop(data), :status => :multi_status) and return
@@ -384,6 +388,8 @@ end
 		when "infinity" then render(:nothing => true, :status => :forbidden) and return
 		end
 
+	    if params['propfind'].nil? then render(:nothing => true, :status =>:ok) and return
+	    if params['propfind'].count > 1 then render(:nothing => true, :status =>:bad_request) and return
 		params['propfind'].each_pair do |k,v|
 		  case k
 		  when 'allprop' then render(:xml => self.generate_allprop(data), :status => :multi_status) and return
