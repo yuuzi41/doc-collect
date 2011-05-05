@@ -13,8 +13,8 @@
 </dd>
 <dt><%= link_to 'DAVパス',:controller=>"fakedav",:action=>"prop" %></dt>
 <dd>
-<p>Windowsの場合:マイコンピュータ上で「ネットワークドライブの割当」を行う。パスは<span class="url_italic"><%= url_for(:controller=>"fakedav",:action=>"prop") %></span>とする。</p>
-<p>Mac OS Xの場合:Finderを有効にした後メニュー上の「移動」→「サーバへ接続」を行う。サーバアドレスは<span class="url_italic"><%= url_for(:controller=>"fakedav",:action=>"prop") %></span>とする。</p>
+<p>Windowsの場合:マイコンピュータ上で「ネットワークドライブの割当」を行う。パスは<span class="url_italic"><%= url_for(:controller=>"fakedav",:action=>"prop",:only_path = false) %></span>とする。</p>
+<p>Mac OS Xの場合:Finderを有効にした後メニュー上の「移動」→「サーバへ接続」を行う。サーバアドレスは<span class="url_italic"><%= url_for(:controller=>"fakedav",:action=>"prop",:only_path = false) %></span>とする。</p>
 </dd>
 </dl>
 </div>
