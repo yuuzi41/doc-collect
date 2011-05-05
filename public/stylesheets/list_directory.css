@@ -19,7 +19,7 @@ img { border: 0; }
 
 .url_italic
 {
-	color: #301000;
+	color: #c04020;
 	font-style: italic;
 }
 
@@ -82,6 +82,11 @@ img { border: 0; }
 	background-color: white;
 	padding: 10px;
 	border-left: 1px solid #808080;
+}
+
+.link_desc_list dt
+{
+	font-weight: bold;
 }
 
 #dirtable
