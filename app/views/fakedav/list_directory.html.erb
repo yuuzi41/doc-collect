@@ -29,8 +29,8 @@
 <% else %>
 <td class="cname"><a href="<%= d[:href] %>"><%= image_tag("/Icon_File.png", :size=>"28x28", :alt=>"file", :class=>"vmiddle") %> <%= d[:prop][:displayname] %></a></td>
 <% end %>
-<td class="ccdate"><%= Time.parse(d[:prop][:creationdate]).strftime("%Y年%m月%d日 %H時%M分%S秒") %></td>
-<td class="cmdate"><%= Time.parse(d[:prop][:getlastmodified]).strftime("%Y年%m月%d日 %H時%M分%S秒") %></td>
+<td class="ccdate"><%= Time.parse(d[:prop][:creationdate]).getlocal.strftime("%Y年%m月%d日 %H時%M分 %Z") %></td>
+<td class="cmdate"><%= Time.parse(d[:prop][:getlastmodified]).getlocal.strftime("%Y年%m月%d日 %H時%M分 %Z") %></td>
 <td class="csize"><%= d[:prop][:getcontentlength] %></td>
 <td class="cmime"><%= d[:prop][:getcontenttype] %></td>
 </tr>
