@@ -30,14 +30,24 @@ img { border: 0; }
 	margin: 5px 10px;
 }
 
+#header
+{
+	background-color: white;
+	border-top: 1px solid #d0d0d0;
+	border-bottom: 1px solid #808080;
+	margin: 0;
+	padding: 0;
+}
+
+.recentpath
+{
+	float: right;
+}
+
 #dirname
 {
 	font-size: 28px;
-	background-color: white;
-	margin: 0;
-	padding: 10px 30px;
-	border-top: 1px solid #d0d0d0;
-	border-bottom: 1px solid #808080;
+	margin: 6px 30px;
 }
 
 #dircontent
@@ -123,7 +133,7 @@ img { border: 0; }
 	margin-top: 0;
 	margin-bottom: 20px;
 	width: 900px;
-	padding: 10px 30px;
+	padding: 10px;
 }
 
 #footlinklist

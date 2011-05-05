@@ -1,7 +1,12 @@
 <%= stylesheet_link_tag "list_directory" %>
 <div id="container">
 <h1 id="title"><%= link_to(image_tag("/TitleImage.png", :alt=>"DocCollect", :class=>"vmiddle"), {:controller=>"root",:action=>"index"}) %></h1>
-<h2 id="dirname"><%= image_tag("/Icon_Dir.png", :size=>"64x64", :alt=>"directory", :class=>"vmiddle") %><%= @name %></h1>
+<div id="header">
+<ul class="recentpath">
+</ul>
+<h2 id="dirname"><%= image_tag("/Icon_Dir.png", :size=>"64x64", :alt=>"directory", :class=>"vmiddle") %><%= @name %></h2>
+</div>
+</div>
 <div id="dircontent">
 <div id="dirtablediv">
 <table id="dirtable">
@@ -14,7 +19,7 @@
 <th>MIME</th>
 </tr>
 <tr class="dirtable_item">
-<td class="cname"><a href=".."><%= image_tag("/Icon_Dir.png", :size=>"28x28", :alt=>"directory", :class=>"vmiddle") %>..</a></td>
+<td class="cname"><a href=".."><%= image_tag("/Icon_Dir.png", :size=>"28x28", :alt=>"directory", :class=>"vmiddle") %> ..</a></td>
 <td class="ccdate" />
 <td class="cmdate" />
 <td class="csize" />
@@ -22,13 +27,11 @@
 </tr>
 <% @datas.each do |d| %>
 <tr class="dirtable_item dirtable_item_bordered">
-<td class="cname"><a href="<%= d[:href] %>">
 <% if d[:prop][:resourcetype] %>
-<%= image_tag("/Icon_Dir.png", :size=>"28x28", :alt=>"directory", :class=>"vmiddle") %>
+<td class="cname"><a href="<%= d[:href] %>"><%= image_tag("/Icon_Dir.png", :size=>"28x28", :alt=>"directory", :class=>"vmiddle") %> <%= d[:prop][:displayname] %></a></td>
 <% else %>
-<%= image_tag("/Icon_File.png", :size=>"28x28", :alt=>"file", :class=>"vmiddle") %>
+<td class="cname"><a href="<%= d[:href] %>"><%= image_tag("/Icon_File.png", :size=>"28x28", :alt=>"file", :class=>"vmiddle") %> <%= d[:prop][:displayname] %></a></td>
 <% end %>
-<%= d[:prop][:displayname] %></a></td>
 <td class="ccdate"><%= Time.parse(d[:prop][:creationdate]).strftime("%Y年%m月%d日 %H時%M分%S秒") %></td>
 <td class="cmdate"><%= Time.parse(d[:prop][:getlastmodified]).strftime("%Y年%m月%d日 %H時%M分%S秒") %></td>
 <td class="csize"><%= d[:prop][:getcontentlength] %></td>
