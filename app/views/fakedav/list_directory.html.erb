@@ -1,7 +1,9 @@
 <div id="container">
 <h1 id="title"><%= link_to(image_tag("/TitleImage.png", :alt=>"DocCollect", :class=>"vmiddle"), {:controller=>"root",:action=>"index"}) %></h1>
 <div id="header">
-<ul class="recentpath"></ul>
+<ul class="recentpath">
+<li></li>
+</ul>
 <h2 id="dirname"><%= image_tag("/Icon_Dir.png", :size=>"64x64", :alt=>"directory", :class=>"vmiddle") %><%= @name %></h2>
 </div>
 <div id="dircontent">
@@ -46,7 +48,7 @@
 </div>
 <ul id="footlinklist">
 <li>&copy; 2011 DocCollect. All rights reserved.</li>
-<li><a href=""Valid HTML</li>
+<li><a href="http://validator.w3.org/check?uri=referer">Valid HTML</a></li>
 </ul>
 </div>
 </div>
