@@ -6,7 +6,16 @@
 </div>
 <div id="dircontent">
 <div id="dirtablediv">
-<p><%= link_to 'カテゴリ一覧',:controller=>"categories",:action=>"index" %></p>
-<p><%= link_to 'DAVパス',:controller=>"fakedav",:action=>"prop" %></p>
+<dl>
+<dt><%= link_to 'カテゴリ一覧',:controller=>"categories",:action=>"index" %></dt>
+<dd>
+<p>カテゴリ、属性、ドキュメントの登録，編集</p>
+</dd>
+<dt><%= link_to 'DAVパス',:controller=>"fakedav",:action=>"prop" %></dt>
+<dd>
+<p>Windowsの場合:マイコンピュータ上で「ネットワークドライブの割当」を行う。パスは<span class="url_italic"><%= url_for(:controller=>"fakedav",:action=>"prop") %></span>とする。</p>
+<p>Mac OS Xの場合:Finderを有効にした後メニュー上の「移動」→「サーバへ接続」を行う。サーバアドレスは<span class="url_italic"><%= url_for(:controller=>"fakedav",:action=>"prop") %></span>とする。</p>
+</dd>
+</dl>
 </div>
 </div>

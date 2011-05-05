@@ -17,6 +17,12 @@ a:active  { color: #5e1541 }
 
 img { border: 0; }
 
+.url_italic
+{
+	color: #301000;
+	font-style: italic;
+}
+
 #container
 {
 	background-color:#e0e0e0;
