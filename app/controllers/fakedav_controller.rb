@@ -152,8 +152,8 @@ end
 	  else render(:nothing => true, :status => :forbidden) and return
 	  end
 
-	  params['propfind'] = {'allprop' => nil} if params['propfind'].nil? ##xmlリクエストじゃなければallprop扱い
 	  render(:nothing => true, :status =>:bad_request) and return if params['propfind'].count > 1
+	  params['propfind'] = {'allprop' => nil} if params['propfind'].nil? ##xmlリクエストじゃなければallprop扱い
 	  params['propfind'].each_pair do |k,v|
         case k
 	    when 'allprop' then render(:xml => self.generate_allprop(data), :status => :multi_status) and return
@@ -201,8 +201,8 @@ end
 	  when "infinity" then render(:text => '', :status => :forbidden) and return
 	  end
 
-  	  render(:nothing => true, :status =>:ok) and return if params['propfind'].nil?
 	  render(:nothing => true, :status =>:bad_request) and return if params['propfind'].count > 1
+	  params['propfind'] = {'allprop' => nil} if params['propfind'].nil? ##xmlリクエストじゃなければallprop扱い
 	  params['propfind'].each_pair do |k,v|
         case k
 	    when 'allprop' then render(:xml => self.generate_allprop(data), :status => :multi_status) and return
@@ -389,8 +389,8 @@ end
 		when "infinity" then render(:nothing => true, :status => :forbidden) and return
 		end
 
-	    render(:nothing => true, :status =>:ok) and return if params['propfind'].nil?
 	    render(:nothing => true, :status =>:bad_request) and return if params['propfind'].count > 1
+	    params['propfind'] = {'allprop' => nil} if params['propfind'].nil? ##xmlリクエストじゃなければallprop扱い
 		params['propfind'].each_pair do |k,v|
 		  case k
 		  when 'allprop' then render(:xml => self.generate_allprop(data), :status => :multi_status) and return
