@@ -4,7 +4,7 @@ The DocCollect is a rails application, for document(scanned ebooks,pdfs,etc)  ma
 
 Documents managed this-app is attached Attributes(author, publisher, categories, etc).
 
-This Application provides Web DAV interface. You can access the documents by webdav, supported by win and mac by default. And You can narrowing-down to your find documents by Attributes.
+This Application provides Web DAV interface. You can access the documents by WebDAV, mountable by win,mac,linux and etc systems. And You can narrowing-down your find documents by Attributes.
 
 I'm sorry this app is support japanese only.
 
