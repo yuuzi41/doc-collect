@@ -1,8 +1,8 @@
-# DocCollect - DocCollect; DAV-ed Document Management System, Powered by Ruby on Rails
+# DocCollect - DAV-ed Document Management System
 
-The DocCollect is a rails application, for new document(scanned ebooks,pdfs,etc)  management.
+The DocCollect is a rails application, for document(scanned ebooks,pdfs,etc)  management.
 
-Documents managed this is attached Attributes(author, publisher, categories, etc).
+Documents managed this-app is attached Attributes(author, publisher, categories, etc).
 
 This Application provides Web DAV interface. You can access the documents by webdav, supported by win and mac by default. And You can narrowing-down to your find documents by Attributes.
 
